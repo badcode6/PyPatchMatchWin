@@ -3,13 +3,16 @@
 #include <cstdio>
 #include <cstring>
 
+
+#define DLLEXPORT extern "C" __declspec(dllexport)
+
 extern "C" {
 
-struct PM_shape_t {
+    DLLEXPORT struct PM_shape_t {
     int width, height, channels;
 };
 
-enum PM_dtype_e {
+ enum PM_dtype_e {
     PM_UINT8,
     PM_INT8,
     PM_UINT16,
@@ -19,20 +22,20 @@ enum PM_dtype_e {
     PM_FLOAT64,
 };
 
-struct PM_mat_t {
+DLLEXPORT struct PM_mat_t {
     void *data_ptr;
     PM_shape_t shape;
     int dtype;
 };
 
-void PM_set_random_seed(unsigned int seed);
-void PM_set_verbose(int value);
+DLLEXPORT void PM_set_random_seed(unsigned int seed);
+DLLEXPORT void PM_set_verbose(int value);
 
-void PM_free_pymat(PM_mat_t pymat);
-PM_mat_t PM_inpaint(PM_mat_t image, PM_mat_t mask, int patch_size);
-PM_mat_t PM_inpaint_regularity(PM_mat_t image, PM_mat_t mask, PM_mat_t ijmap, int patch_size, float guide_weight);
-PM_mat_t PM_inpaint2(PM_mat_t image, PM_mat_t mask, PM_mat_t global_mask, int patch_size);
-PM_mat_t PM_inpaint2_regularity(PM_mat_t image, PM_mat_t mask, PM_mat_t global_mask, PM_mat_t ijmap, int patch_size, float guide_weight);
+DLLEXPORT void PM_free_pymat(PM_mat_t pymat);
+DLLEXPORT PM_mat_t PM_inpaint(PM_mat_t image, PM_mat_t mask, int patch_size);
+DLLEXPORT PM_mat_t PM_inpaint_regularity(PM_mat_t image, PM_mat_t mask, PM_mat_t ijmap, int patch_size, float guide_weight);
+DLLEXPORT PM_mat_t PM_inpaint2(PM_mat_t image, PM_mat_t mask, PM_mat_t global_mask, int patch_size);
+DLLEXPORT PM_mat_t PM_inpaint2_regularity(PM_mat_t image, PM_mat_t mask, PM_mat_t global_mask, PM_mat_t ijmap, int patch_size, float guide_weight);
 
 } /*  extern "C" */
 
